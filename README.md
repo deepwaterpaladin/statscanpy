@@ -1,5 +1,5 @@
 # StatsCanPy
-Basic package for accessing StatsCan data.
+Basic package for accessing StatsCan data. 
 
 ## Installation
 `pip install statscanpy`
@@ -21,3 +21,7 @@ Basic package for accessing StatsCan data.
 ```
   sc.find_table_id_from_name("GDP", limit=15)
 ```
+
+## Further Reading
+- [StatsCan Data](https://www150.statcan.gc.ca/n1/en/type/data?MM=1)
+- [StatsCan API](https://www.statcan.gc.ca/en/developers/wds/user-guide)
