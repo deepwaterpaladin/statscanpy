@@ -1,0 +1,16 @@
+[project]
+name = "statscanpy"
+version = "v.0.0.1"
+dependencies = [
+  "requests"
+]
+requires-python = ">=3.8"
+authors = [
+  {name = "Rielly H. Young", email = "rielly.young11@gmail.com"}
+]
+maintainers = [
+  {name = "Rielly H. Young", email = "rielly.young11@gmail.com"}
+]
+
+[project.urls]
+Repository = "https://github.com/deepwaterpaladin/statscanpy/"
