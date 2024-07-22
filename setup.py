@@ -5,5 +5,6 @@ setup(
     version='0.0.2',
     description='Basic package for accessing StatsCan data.',
     long_description=open('README.md').read(),
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
+    install_requires=['pyspark','pandas']
 )
