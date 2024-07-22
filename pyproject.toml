@@ -1,6 +1,5 @@
 [project]
 name = "statscanpy"
-version = "v.0.0.1"
 dependencies = [
   "requests",
   "pandas",
