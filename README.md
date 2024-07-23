@@ -15,10 +15,16 @@ Basic package for querying & downloading [StatsCan](https://www.statcan.gc.ca/en
   statscan = StatsCanPy(path="/data/saved/here", isSpark=True)
 ```
 
-### Getting Table from Table Name
+### Getting Table ID from Table Name
 
 ```python
   statscan.get_table_id_from_name("Household spending, Canada, regions and provinces")
+```
+
+### Getting Table Data from Table Name
+
+```python
+  statscan.get_table_from_name("Household spending, Canada, regions and provinces")
 ```
 
 ### Searching for Table(s) by String
