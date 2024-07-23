@@ -1,4 +1,3 @@
-from datetime import datetime
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql import functions as F
 import pandas as pd
@@ -12,7 +11,7 @@ class StatsCanPy:
     Basic Wrapper for Querying StatsCan Data.
     Provides methods to search and retrieve datasets from the Statistics Canada website.
     '''
-    def __init__(self, path:str=None, spark=True):
+    def __init__(self, path: str=None, isSpark: bool=True):
         '''
         Initializes the StatsCanPy instance.
 
@@ -28,12 +27,12 @@ class StatsCanPy:
             `patterns (list)`: Regular expressions for extracting data from HTML.
         '''
         self.path = "./temp" if path is None else path
-        self.spark = SparkSession.builder.getOrCreate() if spark else None
-        self.isSpark = spark
+        self.spark = SparkSession.builder.getOrCreate() if isSpark else None
+        self.isSpark = isSpark
         self.base_url = "https://www150.statcan.gc.ca/n1/en/type/data?text="
         self.patterns = [r'<span>Table:</span>\s*(\d{2}-\d{2}-\d{4}-\d{2})', r'<div class="ndm-result-title">\s*<span>\d+\.\s*<a href="([^"]+)".*?>(.*?)</a>', r'<div class="ndm-result-title">\s*<span>\d+\.\s*<a[^>]*>(.*?)</a>']
 
-    def get_table_id_from_name(self, table_name:str) -> str:
+    def get_table_id_from_name(self, table_name: str) -> str:
         '''
         Retrieves the table ID for a given table name.
 
@@ -54,7 +53,7 @@ class StatsCanPy:
             print("No match found")
             return Exception("No match found")
         
-    def find_table_id_from_name(self, table_name:str, limit:int=10) -> list:
+    def find_table_id_from_name(self, table_name: str, limit: int=10) -> list:
         '''
         Finds multiple table IDs from the given table name.
 
@@ -83,7 +82,7 @@ class StatsCanPy:
         else:
             return Exception("No match found.\nTry a different string.")
     
-    def get_table_from_name(self, table_name:str):
+    def get_table_from_name(self, table_name: str):
         '''
         Retrieves a table as a DataFrame, given its name.
 
@@ -125,7 +124,7 @@ class StatsCanPy:
             except Exception as e:
                 raise e
     
-    async def __get_table_csv_as_spark(self, table_id:str) -> DataFrame:
+    async def __get_table_csv_as_spark(self, table_id: str) -> DataFrame:
         '''
         Private method to retrieve a table as a Spark DataFrame.
 
@@ -138,12 +137,11 @@ class StatsCanPy:
         try:
             await self.__download_data(table_id)
             df = self.spark.read.csv(f"{self.path}/{table_id}.csv", header=True).withColumn("REF_DATE", F.col("REF_DATE").cast("date")).withColumn("UOM_ID", F.col("UOM_ID").cast("int")).withColumn("VALUE", F.col("VALUE").cast("float")).withColumn("DECIMALS", F.col("DECIMALS").cast("int")).orderBy(F.col("REF_DATE").desc())
-            
             return df
         except Exception as e:
             raise e
 
-    async def __get_table_csv_as_pandas(self, table_id:str) -> pd.DataFrame:
+    async def __get_table_csv_as_pandas(self, table_id: str) -> pd.DataFrame:
         '''
         Private method to retrieve a table as a Pandas DataFrame.
 
