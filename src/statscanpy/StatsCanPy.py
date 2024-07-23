@@ -55,7 +55,7 @@ class StatsCanPy:
         
     def find_table_id_from_name(self, table_name: str, limit: int=10) -> list:
         '''
-        Finds multiple table IDs from the given table name.
+        Finds multiple table IDs from the given table name. Maximum return value is 50.
 
         Args:
             `table_name (str)`: The name of the table to search for.
@@ -64,7 +64,7 @@ class StatsCanPy:
         Returns:
             `list (str)`: A list of table IDs and details if found, otherwise raises an exception.
         '''
-        req = requests.get(self.base_url+table_name)
+        req = requests.get(self.base_url+table_name+"&count=50")
         matches = re.findall(self.patterns[0], req.text)
         name_matches = re.findall(self.patterns[2], req.text, re.DOTALL)
         table_url_matches = re.findall(self.patterns[1], req.text, re.DOTALL)
