@@ -12,19 +12,19 @@ Basic package for querying & downloading [StatsCan](https://www.statcan.gc.ca/en
 
 ```python
   from statscanpy import StatsCanPy
-  statscan = StatsCanPy()
+  statscan = StatsCanPy(path="/data/saved/here", isSpark=True)
 ```
 
 ### Getting Table from Table Name
 
 ```python
-  sc.get_table_id_from_name("Gross domestic product (GDP) at basic prices, by industry, monthly, growth rates", limit=15)
+  statscan.get_table_id_from_name("Household spending, Canada, regions and provinces")
 ```
 
 ### Searching for Table(s) by String
 
 ```python
-  sc.find_table_id_from_name("GDP", limit=15)
+  statscan.find_table_id_from_name("GDP", limit=15)
 ```
 
 ## Further Reading
