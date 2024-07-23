@@ -11,7 +11,7 @@ Basic package for querying & downloading [StatsCan](https://www.statcan.gc.ca/en
 ### Basic Usage
 
 ```python
-  from statscanpy.StatsCanPy import StatsCanPy
+  from statscanpy import StatsCanPy
   statscan = StatsCanPy()
 ```
 
