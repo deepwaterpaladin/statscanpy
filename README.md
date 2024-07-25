@@ -1,5 +1,7 @@
 # StatsCanPy
 
+[![Upload Python Package](https://github.com/deepwaterpaladin/statscanpy/actions/workflows/python-publish.yml/badge.svg)](https://github.com/deepwaterpaladin/statscanpy/actions/workflows/python-publish.yml)
+
 Basic package for querying & downloading [StatsCan](https://www.statcan.gc.ca/en/start) data by table name. Saves data into a dataframe (`Pandas` or `PySpark`).
 
 Allows for querying datasets via plain text search or table ID.
