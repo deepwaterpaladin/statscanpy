@@ -19,6 +19,8 @@ jobs:
   deploy:
 
     runs-on: ubuntu-latest
+    env:
+        PYTHONPATH: ${{ github.workspace }}/src:$PYTHONPATH
 
     steps:
     - uses: actions/checkout@v4
@@ -33,8 +35,6 @@ jobs:
         pip install build pytest
     - name: Run tests
       run: pytest tests/test_module.py
-      env:
-        PYTHONPATH: ${{ github.workspace }}/src/statscanpy:$PYTHONPATH
     - name: Build package
       run: python -m build .
     - name: Publish package
