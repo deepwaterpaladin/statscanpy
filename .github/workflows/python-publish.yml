@@ -31,6 +31,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pyspark
         pip install build pytest
+        export PYTHONPATH="$PYTHONPATH:./statscanpy/src"
     - name: Run tests
       run: pytest ./tests/test_module.py
     - name: Build package
