@@ -2,6 +2,8 @@
 
 Basic package for querying & downloading [StatsCan](https://www.statcan.gc.ca/en/start) data by table name. Saves data into a dataframe (`Pandas` or `PySpark`).
 
+Allows for searching datasets via plain text search or table ID.
+
 ## Installation
 
 `pip install statscanpy`
