@@ -34,7 +34,7 @@ jobs:
     - name: Run tests
       run: pytest ./tests/test_module.py
       env:
-        PYTHONPATH: ${{ github.workspace }}/statscanpy/src:$PYTHONPATH
+        PYTHONPATH: ${{ github.workspace }}/statscanpy/src/statscanpy:$PYTHONPATH
     - name: Build package
       run: python -m build .
     - name: Publish package
