@@ -1,5 +1,8 @@
 # StatsCanPy
 
+.. image:: <https://github.com/deepwaterpaladin/statscanpy/workflows/CI/badge.svg>
+    :target: <https://github.com/deepwaterpaladin/statscanpy/actions?workflow=CI>
+
 Basic package for querying & downloading [StatsCan](https://www.statcan.gc.ca/en/start) data by table name. Saves data into a dataframe (`Pandas` or `PySpark`).
 
 ## Installation
