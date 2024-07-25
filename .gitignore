@@ -1,4 +1,5 @@
 *.ipynb
 *.env
 temp
+test_data
 __pycache__

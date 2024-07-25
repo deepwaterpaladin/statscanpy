@@ -51,7 +51,7 @@ class StatsCanPy:
             return match.group(1)
         else:
             print("No match found")
-            return Exception("No match found")
+            raise Exception("No match found")
         
     def find_table_id_from_name(self, table_name: str, limit: int=10) -> list:
         '''
