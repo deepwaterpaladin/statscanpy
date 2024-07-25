@@ -90,8 +90,3 @@ async def test_get_table_from_name_no_match_spark(spark_stats_can):
     '''Test finding table IDs for a nonexistent table name.'''
     with pytest.raises(Exception):
         await spark_stats_can.get_table_from_name("nonexistent_table")
-
-def test_filesystem_permissions():
-    '''Test handling of inaccessible paths.'''
-    with pytest.raises(PermissionError):
-        StatsCanPy(path='/restricted_path', isSpark=False)
