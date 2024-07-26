@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='statscanpy',
-    version='0.1.8',
+    version='1.0.0',
     description='Basic package for querying & downloading StatsCan data by table name.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
