@@ -1,5 +1,7 @@
 # StatsCanPy
 
+[![Unit Tests](https://github.com/deepwaterpaladin/statscanpy/actions/workflows/qa-tests.yml/badge.svg)](https://github.com/deepwaterpaladin/statscanpy/actions/workflows/qa-tests.yml)
+
 [![Upload Python Package](https://github.com/deepwaterpaladin/statscanpy/actions/workflows/python-publish.yml/badge.svg)](https://github.com/deepwaterpaladin/statscanpy/actions/workflows/python-publish.yml)
 
 Basic package for querying & downloading [StatsCan](https://www.statcan.gc.ca/en/start) data by table name. Saves data into a dataframe (`Pandas` or `PySpark`).
