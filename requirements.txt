@@ -1,4 +1,4 @@
 pandas
 pyspark
 pytest-asyncio
-requests
+aiohttp
