@@ -27,7 +27,7 @@ class StatsCanPy:
             `base_url (str)`: Base URL for querying data.
             `patterns (list)`: Regular expressions for extracting data from HTML.
         '''
-        self.path = "./temp" if path is None else path
+        self.path = "temp" if path is None else path
         self.spark = SparkSession.builder.getOrCreate() if isSpark else None
         self.isSpark = isSpark
         self.base_url = "https://www150.statcan.gc.ca/n1/en/type/data?text="
