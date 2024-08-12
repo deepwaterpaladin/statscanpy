@@ -122,6 +122,7 @@ class StatsCanPy:
                 zip_response = requests.get(zip_file_url)
                 z = zipfile.ZipFile(io.BytesIO(zip_response.content))
                 z.extractall(path)
+                print(path)
                 return path
             except Exception as e:
                 raise e
