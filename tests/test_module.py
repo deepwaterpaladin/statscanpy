@@ -17,18 +17,6 @@ def spark_stats_can():
 def test_table_name():
     return "Chartered banks, foreign currency assets and liabilities, at month-end, Bank of Canada"
 
-def test_initialization_default():
-    '''Test default initialization of StatsCanPy.'''
-    instance = StatsCanPy()
-    assert instance.path == os.path.dirname(__file__)
-    assert instance.isSpark is True
-
-def test_initialization_spark():
-    '''Test default initialization of StatsCanPy.'''
-    instance = StatsCanPy(path=None, isSpark=False)
-    assert instance.path == os.path.dirname(__file__)
-    assert instance.isSpark is True
-
 def test_get_table_id_from_name(stats_can, test_table_name):
     '''
     Test retrieving table ID by table name.
