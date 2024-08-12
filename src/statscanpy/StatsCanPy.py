@@ -163,4 +163,4 @@ class StatsCanPy:
         for i in os.sys.path:
             if "databricks" in i:
                 return f"/mnt/temp/{path}/"
-        return os.path.join(os.path.dirname(__file__), f"{path}/"))
+        return os.path.join(os.path.dirname(__file__), f"{path}/")
