@@ -17,6 +17,14 @@ def spark_stats_can():
 def test_table_name():
     return "Chartered banks, foreign currency assets and liabilities, at month-end, Bank of Canada"
 
+def test_custom_path_as_spark():
+    sc = StatsCanPy(path="mine", isSpark=True)
+    assert(("mine" in sc.path))
+
+def test_custom_path_as_pandas():
+    sc = StatsCanPy(path="mine", isSpark=False)
+    assert(("mine" in sc.path))
+
 def test_get_table_id_from_name(stats_can, test_table_name):
     '''
     Test retrieving table ID by table name.
