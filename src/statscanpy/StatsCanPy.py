@@ -114,13 +114,14 @@ class StatsCanPy:
         base_endpoint = "https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/"
         response = requests.get(f"{base_endpoint}{table_id}/en")
         data = response.json()
+        path = os.path.join(os.path.dirname(__file__), self.path)
         if data['status'] == 'SUCCESS':
             try:
                 zip_file_url = data['object']
                 zip_response = requests.get(zip_file_url)
                 z = zipfile.ZipFile(io.BytesIO(zip_response.content))
-                z.extractall(self.path)
-                return self.path
+                z.extractall(path)
+                return path
             except Exception as e:
                 raise e
     
