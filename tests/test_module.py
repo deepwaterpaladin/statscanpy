@@ -5,12 +5,12 @@ from statscanpy.StatsCanPy import StatsCanPy
 @pytest.fixture
 def stats_can():
     '''Fixture to initialize StatsCanPy instance with test data path.'''
-    return StatsCanPy(path='./test_data', isSpark=False)
+    return StatsCanPy(path=None, isSpark=False)
 
 @pytest.fixture
 def spark_stats_can():
     '''Fixture to initialize StatsCanPy instance with test data path.'''
-    return StatsCanPy(path='./test_data', isSpark=True)
+    return StatsCanPy(path=None, isSpark=True)
 
 @pytest.fixture
 def test_table_name():
