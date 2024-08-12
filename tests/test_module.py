@@ -1,4 +1,5 @@
 import pytest
+import os
 from pyspark.sql import DataFrame
 from statscanpy.StatsCanPy import StatsCanPy
 
@@ -19,14 +20,14 @@ def test_table_name():
 def test_initialization_default():
     '''Test default initialization of StatsCanPy.'''
     instance = StatsCanPy()
-    assert instance.path == './temp'
+    assert instance.path == os.path.dirname(__file__)
     assert instance.isSpark is True
 
-def test_initialization_custom():
-    '''Test custom initialization of StatsCanPy.'''
-    instance = StatsCanPy(path='/custom/path', isSpark=False)
-    assert instance.path == '/custom/path'
-    assert instance.isSpark is False
+def test_initialization_spark():
+    '''Test default initialization of StatsCanPy.'''
+    instance = StatsCanPy(path=None, isSpark=False)
+    assert instance.path == os.path.dirname(__file__)
+    assert instance.isSpark is True
 
 def test_get_table_id_from_name(stats_can, test_table_name):
     '''
