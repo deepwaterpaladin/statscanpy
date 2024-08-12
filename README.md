@@ -24,13 +24,13 @@ Allows for querying datasets via plain text search or table ID.
 ### Getting Table ID from Table Name
 
 ```python
-  statscan.get_table_id_from_name("Household spending, Canada, regions and provinces")
+  await statscan.get_table_id_from_name("Household spending, Canada, regions and provinces")
 ```
 
 ### Getting Table Data from Table Name
 
 ```python
-  statscan.get_table_from_name("Household spending, Canada, regions and provinces")
+  await statscan.get_table_from_name("Household spending, Canada, regions and provinces")
 ```
 
 ### Searching for Table(s) by String
