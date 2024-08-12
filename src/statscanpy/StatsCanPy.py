@@ -27,7 +27,7 @@ class StatsCanPy:
             `base_url (str)`: Base URL for querying data.
             `patterns (list)`: Regular expressions for extracting data from HTML.
         '''
-        self.path = os.path.dirname(__file__)
+        self.path = self.__set_path(path)
         self.spark = SparkSession.builder.getOrCreate() if isSpark else None
         self.isSpark = isSpark
         self.base_url = "https://www150.statcan.gc.ca/n1/en/type/data?text="
@@ -158,3 +158,9 @@ class StatsCanPy:
             return df
         except Exception as e:
             raise e
+
+    def __set_path(self, path:str=""): 
+        for i in os.sys.path:
+            if "databricks" in i:
+                return f"/mnt/temp/{path}/"
+        return os.path.join(os.path.dirname(__file__), f"{path}/"))
