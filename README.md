@@ -18,6 +18,8 @@ Allows for querying datasets via plain text search or table ID.
 
 ```python
   from statscanpy import StatsCanPy
+
+  # if isSpark==True, data returns will be in PySpark; otherwise it will return as a pandas.DataFrame
   statscan = StatsCanPy(path="/data/saved/here", isSpark=True)
 ```
 
