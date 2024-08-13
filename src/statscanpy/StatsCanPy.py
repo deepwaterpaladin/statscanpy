@@ -159,7 +159,7 @@ class StatsCanPy:
         '''
         try:
             await self.__download_data(table_id)
-            df = pd.read_csv(f"{self.path}/{table_id}.csv", header=0)
+            df = pd.read_csv(f"{self.path}/{table_id}.csv", header=0, index_col= "REF_DATE")
             return df
         except Exception as e:
             raise e
