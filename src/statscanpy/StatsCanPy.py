@@ -12,13 +12,13 @@ class StatsCanPy:
     Basic Wrapper for Querying StatsCan Data.
     Provides methods to search and retrieve datasets from the Statistics Canada website.
     '''
-    def __init__(self, path: str=None, isSpark: bool=True):
+    def __init__(self, path: str = None, isSpark: bool = True):
         '''
         Initializes the StatsCanPy instance.
 
         Args:
-            `path (str)`: Directory where downloads will be saved. Uses a temporary directory if None.
-            `spark (bool)`: Use Spark for data processing if True; otherwise uses Pandas.
+            `path (str)`: Directory where downloads will be saved. Uses a Databricks DBFS or local directory if None.
+            `isSpark (bool)`: Use Spark for data processing if True; otherwise uses Pandas.
 
         Attributes:
             `path (str)`: Directory path for data storage.
@@ -43,7 +43,7 @@ class StatsCanPy:
         Returns:
             `str`: The table ID if found, otherwise raises an exception.
         '''
-        req = requests.get(self.base_url+table_name)
+        req = requests.get(self.base_url + table_name)
         match = re.search(self.patterns[0], req.text)
         name_match = re.search(self.patterns[2], req.text, re.DOTALL)
         table_url_match = re.search(self.patterns[1], req.text, re.DOTALL)
@@ -54,7 +54,7 @@ class StatsCanPy:
             print("No match found")
             raise Exception("No match found")
         
-    def find_table_id_from_name(self, table_name: str, limit: int=10) -> list:
+    def find_table_id_from_name(self, table_name: str, limit: int = 10) -> list:
         '''
         Finds multiple table IDs from the given table name. Maximum return value is 50.
 
@@ -65,7 +65,7 @@ class StatsCanPy:
         Returns:
             `list (str)`: A list of table IDs and details if found, otherwise raises an exception.
         '''
-        req = requests.get(self.base_url+table_name+"&count=50")
+        req = requests.get(self.base_url + table_name + "&count=50")
         matches = re.findall(self.patterns[0], req.text)
         name_matches = re.findall(self.patterns[2], req.text, re.DOTALL)
         table_url_matches = re.findall(self.patterns[1], req.text, re.DOTALL)
@@ -79,9 +79,9 @@ class StatsCanPy:
                     table_url = table_url_matches[i][0]  # Extracting the URL part of the tuple
                     print(f"{i+1}. {table_name}: {table_id}\nAccessible at: {table_url}\n\n")
             except Exception as e:
-                return Exception(f"Issue with match {i}: {str(e)}")
+                raise Exception(f"Issue with match {i}: {str(e)}")
         else:
-            return Exception("No match found.\nTry a different string.")
+            raise Exception("No match found.\nTry a different string.")
     
     def get_table_from_name(self, table_name: str):
         '''
@@ -100,7 +100,7 @@ class StatsCanPy:
             else:
                 return self.__get_table_csv_as_pandas(table_id)
         except Exception as e:
-            return Exception(f"Issue with {table_id}\n: {str(e)}")
+            raise Exception(f"Issue with {table_id}\n: {str(e)}")
 
     async def __download_data(self, table_id: str) -> str:
         '''
@@ -137,7 +137,12 @@ class StatsCanPy:
         '''
         try:
             await self.__download_data(table_id)
-            df = self.spark.read.csv(f"{self.path}/{table_id}.csv", header=True).withColumn("REF_DATE", F.col("REF_DATE").cast("date")).withColumn("UOM_ID", F.col("UOM_ID").cast("int")).withColumn("VALUE", F.col("VALUE").cast("float")).withColumn("DECIMALS", F.col("DECIMALS").cast("int")).orderBy(F.col("REF_DATE").desc())
+            df = self.spark.read.csv(f"{self.path}/{table_id}.csv", header=True) \
+                .withColumn("REF_DATE", F.col("REF_DATE").cast("date")) \
+                .withColumn("UOM_ID", F.col("UOM_ID").cast("int")) \
+                .withColumn("VALUE", F.col("VALUE").cast("float")) \
+                .withColumn("DECIMALS", F.col("DECIMALS").cast("int")) \
+                .orderBy(F.col("REF_DATE").desc())
             return df
         except Exception as e:
             raise e
@@ -159,8 +164,17 @@ class StatsCanPy:
         except Exception as e:
             raise e
 
-    def __set_path(self, path:str=""): 
+    def __set_path(self, path: str = "") -> str: 
+        '''
+        Private method to set the data storage path, with special handling for Databricks.
+
+        Args:
+            `path (str)`: Custom path or default to Databricks DBFS.
+
+        Returns:
+            `str`: The resolved directory path for data storage.
+        '''
         for i in os.sys.path:
             if "databricks" in i:
-                return f"/mnt/temp/{path}/"
+                return f"dbfs:/{path}/"  # Databricks File System path
         return os.path.join(os.path.dirname(__file__), f"{path}/")
