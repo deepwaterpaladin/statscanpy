@@ -26,19 +26,32 @@ Allows for querying datasets via plain text search or table ID.
 ### Getting Table ID from Table Name
 
 ```python
-  await statscan.get_table_id_from_name("Household spending, Canada, regions and provinces")
+  statscan.get_table_id_from_name("Railway industry operating statistics by mainline companies")
+  >>> TOP MATCH:
+      Railway industry operating statistics by mainline companies: 23-10-0055-01
+      Accessible at: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2310005501
 ```
 
 ### Getting Table Data from Table Name
 
 ```python
   await statscan.get_table_from_name("Household spending, Canada, regions and provinces")
+  >>> TOP MATCH:
+      Household spending, Canada, regions and provinces: 11-10-0222-01
+      Accessible at: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110022201
+      DataFrame[REF_DATE: date, GEO: string, ...]
 ```
 
 ### Searching for Table(s) by String
 
 ```python
   statscan.find_table_id_from_name("GDP", limit=15)
+  >>> TOP 15 MATCHES:
+      1. Gross domestic product (GDP) at basic prices, by industry, monthly, growth rates: 36-10-0434-02
+      Accessible at: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610043402
+      2. Gross domestic product, expenditure-based, provincial and territorial, annual: 36-10-0222-01
+      Accessible at: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610022201
+      ...
 ```
 
 ## Further Reading
